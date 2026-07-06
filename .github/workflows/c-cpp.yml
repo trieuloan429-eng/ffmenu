@@ -4,14 +4,14 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Theos environment
+      - name: Setup Theos Environment
         run: |
-          bash -c "$(curl -fsSL https://githubusercontent.com)"
+          git clone --recursive https://github.com /Users/runner/theos
           echo "THEOS=/Users/runner/theos" >> $GITHUB_ENV
 
       - name: Build Tweak Package
@@ -22,7 +22,7 @@ jobs:
       - name: Pack to IPA format
         run: |
           mkdir -p Payload
-          mv *.app Payload/ 2>/dev/null⠞⠺⠺⠟⠟⠺⠵⠺⠵⠞⠺⠵⠺⠞⠟⠺⠺⠺⠺⠵⠵⠟⠟⠺⠺⠞⠵⠺⠺⠺⠞⠞⠺⠟⠞⠵⠵⠵⠵⠵⠺⠵mkdir -p Payload/ffmenu.app
+          mv *.app Payload/ 2>/dev/null⠟⠟⠺⠵⠺⠺⠞⠞⠵⠵⠟⠟⠵⠺⠺⠵⠟⠟⠟⠞⠵⠺⠟⠟⠟⠵⠞⠞⠟⠟⠞⠟⠵⠞⠟⠟⠞⠺⠺⠟⠵⠟mkdir -p Payload/ffmenu.app
           zip -r FreeFire_ESP.ipa Payload
 
       - name: Upload IPA Product
