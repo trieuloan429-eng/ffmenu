@@ -1,32 +1,30 @@
-name: Build IPA
+name: Build TrollSpeed tIPA
+
 on:
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: macos-13
+
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Setup Theos Environment
+      - name: Install Theos & iOS SDK
         run: |
-          git clone --recursive https://github.com /Users/runner/theos
-          echo "THEOS=/Users/runner/theos" >> $GITHUB_ENV
+          bash -c "$(curl -fsSL https://githubusercontent.com)"
+          echo "THEOS=$HOME/theos" >> $GITHUB_ENV
+          mkdir -p $HOME/theos/sdks
+          curl -L https://github.com | tar -xf - -C $HOME/theos/sdks/
 
-      - name: Build Tweak Package
+      - name: Build and Package
         run: |
-          export THEOS=/Users/runner/theos
-          make package FINALPACKAGE=1
+          export THEOS=$HOME/theos
+          make package
 
-      - name: Pack to IPA format
-        run: |
-          mkdir -p Payload
-          mv *.app Payload/ 2>/dev/null⠟⠟⠺⠵⠺⠺⠞⠞⠵⠵⠟⠟⠵⠺⠺⠵⠟⠟⠟⠞⠵⠺⠟⠟⠟⠵⠞⠞⠟⠟⠞⠟⠵⠞⠟⠟⠞⠺⠺⠟⠵⠟mkdir -p Payload/ffmenu.app
-          zip -r FreeFire_ESP.ipa Payload
-
-      - name: Upload IPA Product
+      - name: Upload tIPA Product
         uses: actions/upload-artifact@v4
         with:
-          name: FreeFire_ESP_App
-          path: FreeFire_ESP.ipa
+          name: TrollSpeed_tIPA_Package
+          path: packages/TrollSpeed.tipa
