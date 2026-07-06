@@ -1,20 +1,15 @@
-name: Build TrollSpeed tIPA (Fast Linux)
+name: Build TrollSpeed tIPA (MacOS Final)
 
 on:
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-13
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-
-      - name: Install System Dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential fontconfig libfontconfig1-dev libfreetype6-dev libpng-dev libjpeg-dev libssl-dev bzip2 unzip zip ghostscript
 
       - name: Install Theos & iOS SDK
         run: |
