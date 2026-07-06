@@ -1,11 +1,11 @@
-name: Build TrollSpeed tIPA
+name: Build TrollSpeed tIPA (Fast Linux)
 
 on:
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: macos-13
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
