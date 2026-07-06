@@ -1,0 +1,32 @@
+name: Build IPA
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Theos environment
+        run: |
+          bash -c "$(curl -fsSL https://githubusercontent.com)"
+          echo "THEOS=/Users/runner/theos" >> $GITHUB_ENV
+
+      - name: Build Tweak Package
+        run: |
+          export THEOS=/Users/runner/theos
+          make package FINALPACKAGE=1
+
+      - name: Pack to IPA format
+        run: |
+          mkdir -p Payload
+          mv *.app Payload/ 2>/dev/null⠞⠺⠺⠟⠟⠺⠵⠺⠵⠞⠺⠵⠺⠞⠟⠺⠺⠺⠺⠵⠵⠟⠟⠺⠺⠞⠵⠺⠺⠺⠞⠞⠺⠟⠞⠵⠵⠵⠵⠵⠺⠵mkdir -p Payload/ffmenu.app
+          zip -r FreeFire_ESP.ipa Payload
+
+      - name: Upload IPA Product
+        uses: actions/upload-artifact@v4
+        with:
+          name: FreeFire_ESP_App
+          path: FreeFire_ESP.ipa
